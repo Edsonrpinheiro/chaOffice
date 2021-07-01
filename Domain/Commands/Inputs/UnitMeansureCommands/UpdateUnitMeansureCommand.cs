@@ -1,7 +1,7 @@
 using System;
 using Shared.Commands;
 
-namespace Domain.Commands.CategoryCommands
+namespace Domain.Commands.UnitMeansureCommands
 {
     public class UpdateUnitMeansureCommand : ICommand
     {

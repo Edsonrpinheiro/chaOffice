@@ -1,6 +1,6 @@
 using Shared.Commands;
 
-namespace Domain.Commands.CategoryCommands
+namespace Domain.Commands.UnitMeansureCommands
 {
     public class CreateUnitMeansureCommand : ICommand
     {
