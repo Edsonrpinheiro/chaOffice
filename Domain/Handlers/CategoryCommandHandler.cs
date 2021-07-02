@@ -33,6 +33,12 @@ namespace Domain.Handlers
 
         public ICommandResult Handler(UpdateCategoryCommand command)
         {
+
+            var categoryExists = _categoryRepository.CategoryExists(command.Name, command.Id);
+
+            if (categoryExists)
+                return new GenericCommandResult("Categoria já criada anteriormente", false);
+
             var category = _categoryRepository.Get(command.Id);
             category.ChangeName(command.Name);
 
@@ -46,13 +52,13 @@ namespace Domain.Handlers
             var category = _categoryRepository.Get(command.Id);
             var categoryInUse = _categoryRepository.CategoryInUse(category);
 
-            if (categoryInUse && (category.Id == command.Id))
-                return new GenericCommandResult("Categoria já criada anteriormente", false);
+            if (categoryInUse)
+                return new GenericCommandResult("Categoria está sendo utilizada e não pode ser desativada", false);
 
             category.Deactivate();
             _categoryRepository.Save(category);
 
-            return new GenericCommandResult("Categoria Inativada com sucesso", true);
+            return new GenericCommandResult("Categoria desativada com sucesso", true);
         }
     }
 }

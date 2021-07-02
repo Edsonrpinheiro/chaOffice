@@ -33,6 +33,11 @@ namespace Domain.Handlers
 
         public ICommandResult Handler(UpdateUnitMeansureCommand command)
         {
+            var unitMeansureNameAlreadyExists = _unitMeansureRepository.UnitMeansureExists(command.Name, command.Id);
+
+            if (unitMeansureNameAlreadyExists)
+                return new GenericCommandResult("Unidade de medida já criada anteriormente", false);
+
             var unitMeansure = _unitMeansureRepository.Get(command.Id);
             unitMeansure.Update(command.Name, command.Acronym);
 

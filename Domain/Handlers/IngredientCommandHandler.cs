@@ -22,8 +22,8 @@ namespace Domain.Handlers
 
         public ICommandResult Handler(CreateIngredientCommand command)
         {   
-            var ingredientExists = _ingredientRepository.IngredientExists(command.Name);
-            if(ingredientExists)
+            var ingredientAlreadyExists = _ingredientRepository.IngredientExists(command.Name);
+            if(ingredientAlreadyExists)
                 return new GenericCommandResult("Ingreditente já foi cadastrado anteriormente", false); 
 
             var unitMeansure = _unitMeansureRepository.Get(command.UnitMeansure);
@@ -34,8 +34,8 @@ namespace Domain.Handlers
 
         public ICommandResult Handler(UpdateIngredientCommand command)
         {
-            var ingredientExists = _ingredientRepository.IngredientExists(command.Name);
-            if(ingredientExists)
+            var ingredientAlreadyExists = _ingredientRepository.IngredientExists(command.Name, command.Id);
+            if(ingredientAlreadyExists)
                 return new GenericCommandResult("Ingreditente já foi cadastrado anteriormente", false); 
 
             var unitMeansure = _unitMeansureRepository.Get(command.UnitMeansure);
@@ -47,8 +47,17 @@ namespace Domain.Handlers
         }
 
         public ICommandResult Handler(DeleteIngredientCommand command)
-        {
-            throw new System.NotImplementedException();
+        {   
+            var ingredient = _ingredientRepository.Get(command.Id);
+            var ingredientInUse = _ingredientRepository.IngredientInUse(ingredient);
+
+            if(ingredientInUse)
+                return new GenericCommandResult("Ingreditente não pode ser desativo pois está em uso", false);
+
+            ingredient.Deactivate();
+            _ingredientRepository.Save(ingredient);
+
+            return new GenericCommandResult("Ingreditente desativado", true);
         }
     }
 }

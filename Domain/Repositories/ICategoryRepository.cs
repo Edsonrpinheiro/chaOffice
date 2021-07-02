@@ -8,7 +8,7 @@ namespace Domain.Repositories
     {
         Category Get(Guid id);
         List<Category> Get();
-        bool CategoryExists(string name);
+        bool CategoryExists(string name, Guid? id = null);
         bool CategoryInUse(Category category);
         void Create(Category category);
         void Save(Category category);

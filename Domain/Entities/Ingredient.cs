@@ -31,5 +31,8 @@ namespace Domain.Entities
             Price = price;
             UpdatedAt = DateTime.Now;
         }
+
+        public void Deactivate() => Status = false;
+        public void Activate() => Status = true;
     }
 }

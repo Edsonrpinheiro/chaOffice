@@ -8,10 +8,8 @@ namespace Domain.Repositories
     {
         Ingredient Get(Guid id);
         List<Ingredient> Get();
-        bool IngredientExists(string name);
+        bool IngredientExists(string name, Guid? id = null);
         bool IngredientInUse(Ingredient ingredient);
-        void Create(Ingredient ingredient);
-        void Delete(Ingredient ingredient);
-        void Update(Ingredient ingredient);
+        void Save(Ingredient ingredient);
     }
 }

@@ -9,7 +9,7 @@ namespace Domain.Repositories
         UnitMeansure Get(Guid id);
         bool UnitMeansureInUse(UnitMeansure unitMeansure);
         List<UnitMeansure> Get();
-        bool UnitMeansureExists(string name);
+        bool UnitMeansureExists(string name, Guid? id = null);
         void Save(UnitMeansure unitMeansure);
     }
 }
