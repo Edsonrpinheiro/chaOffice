@@ -36,5 +36,12 @@ namespace Domain.Entities
             Status = EDatasheetStatus.InConstruct;
             UpdatedAt = DateTime.Now;
         }
+
+        public void Update(string name, decimal labor)
+        {
+            Name = name;
+            Labor = labor;
+            UpdatedAt = DateTime.Now;
+        }
     }
 }

@@ -3,9 +3,9 @@ using Shared.Commands;
 
 namespace Domain.Commands.DatasheetCommands
 {
-    public class DeleteDatasheetCommand : ICommand
+    public class RemoveDatasheetCommand : ICommand
     {
-        public DeleteDatasheetCommand(Guid id)
+        public RemoveDatasheetCommand(Guid id)
         {
             Id = id;
         }

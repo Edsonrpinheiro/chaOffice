@@ -51,7 +51,7 @@ namespace Domain.Handlers
             var unitMeansure = _unitMeansureRepository.Get(command.Id);
             var unitMeansureInUse = _unitMeansureRepository.UnitMeansureInUse(unitMeansure);
 
-            if (unitMeansureInUse && (unitMeansure.Id == command.Id))
+            if (unitMeansureInUse)
                 return new GenericCommandResult("Unidade de medida já criada anteriormente", false);
 
             unitMeansure.Deactivate();
