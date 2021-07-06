@@ -49,8 +49,14 @@ namespace Domain.Handlers
         }
 
         public ICommandResult Handler(DeleteDatasheetItemCommand command)
-        {
-            throw new System.NotImplementedException();
+        {   
+            var datasheet = _datasheetRepository.Get(command.Datasheet);
+            var item = _datasheetItemRepository.Get(command.Id);
+
+            datasheet.RemoveItem(item);
+            _datasheetRepository.Save(datasheet);
+
+            return new GenericCommandResult("Item removido", true);
         }
     }
 }

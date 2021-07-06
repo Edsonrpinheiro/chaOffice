@@ -26,13 +26,20 @@ namespace Domain.Entities
         public DateTime UpdatedAt { get; private set; }
         public DateTime CreatedAt { get; private set; }
         public IReadOnlyCollection<DatasheetItem> Items => _items.ToArray();
+        public bool ContainsIngredient(Ingredient ingredient) => Items.Any(x => x.Ingredient.Id == ingredient.Id);
         public decimal SubTotal() => Items.Sum(x => x.Total());
         public decimal Total() => SubTotal() + Labor;
 
         public void AddItem(DatasheetItem item)
         {
             _items.Add(item);
-            
+            Status = EDatasheetStatus.InConstruct;
+            UpdatedAt = DateTime.Now;
+        }
+
+        public void RemoveItem(DatasheetItem item)
+        {
+            _items.Remove(item);
             Status = EDatasheetStatus.InConstruct;
             UpdatedAt = DateTime.Now;
         }
@@ -44,6 +51,6 @@ namespace Domain.Entities
             UpdatedAt = DateTime.Now;
         }
 
-        public bool ContainsIngredient(Ingredient ingredient) => Items.Any(x => x.Ingredient.Id == ingredient.Id);
+
     }
 }
