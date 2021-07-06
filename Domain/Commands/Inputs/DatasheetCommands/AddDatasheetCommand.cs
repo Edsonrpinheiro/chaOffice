@@ -3,9 +3,9 @@ using Shared.Commands;
 
 namespace Domain.Commands.DatasheetCommands
 {
-    public class CreateDatasheetCommand : ICommand
+    public class AddDatasheetCommand : ICommand
     {
-        public CreateDatasheetCommand(Guid product, string name, decimal labor)
+        public AddDatasheetCommand(Guid product, string name, decimal labor)
         {
             Product = product;
             Name = name;
