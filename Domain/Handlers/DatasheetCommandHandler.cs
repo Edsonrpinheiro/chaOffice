@@ -42,8 +42,9 @@ namespace Domain.Handlers
         {
             var datasheet = _datasheetRepository.Get(command.Id);
             datasheet.Update(command.Name, command.Labor);
-
-            return new GenericCommandResult("Ficha técnica excluída", true);
+            _datasheetRepository.Save(datasheet);
+            
+            return new GenericCommandResult("Ficha técnica atualizada", true);
         }
     }
 }

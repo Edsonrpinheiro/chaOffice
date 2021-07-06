@@ -8,8 +8,7 @@ namespace Domain.Repositories
     {
         Datasheet Get(Guid id);
         bool DatasheetNameExists(string name);
-        void Create(Datasheet datasheet);
         void Delete(Datasheet datasheet);
-        void Update(Datasheet datasheet);
+        void Save(Datasheet datasheet);
     }
 }

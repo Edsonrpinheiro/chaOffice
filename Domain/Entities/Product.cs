@@ -21,10 +21,20 @@ namespace Domain.Entities
         public Category Category { get; private set; }
         public string Description { get; private set; }
         public DateTime CreatedAt { get; private set; }
+        public DateTime UpdatedAt { get; private set; }
         public IReadOnlyCollection<Datasheet> Datasheets => _datasheets.ToArray();
         
-        public void AddDatasheet(Datasheet datasheet) {
-            _datasheets.Add(datasheet);
+        public void AddDatasheet(Datasheet datasheet) 
+        {
+            _datasheets.Add(datasheet);        
+        }
+
+        public void Update(string name, Category category, string description) 
+        {            
+            Name = name;
+            Category = category;
+            Description = description;
+            UpdatedAt = DateTime.Now;
         }
     }
 }

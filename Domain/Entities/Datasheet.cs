@@ -29,7 +29,7 @@ namespace Domain.Entities
         public decimal SubTotal() => Items.Sum(x => x.Total());
         public decimal Total() => SubTotal() + Labor;
 
-        public void AddDatasheetItem(DatasheetItem item)
+        public void AddItem(DatasheetItem item)
         {
             _items.Add(item);
             
@@ -43,5 +43,7 @@ namespace Domain.Entities
             Labor = labor;
             UpdatedAt = DateTime.Now;
         }
+
+        public bool ContainsIngredient(Ingredient ingredient) => Items.Any(x => x.Ingredient.Id == ingredient.Id);
     }
 }

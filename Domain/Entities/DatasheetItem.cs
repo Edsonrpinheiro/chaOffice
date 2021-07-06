@@ -20,5 +20,11 @@ namespace Domain.Entities
         public DateTime UpdatedAt { get; private set; }
 
         public decimal Total() => (Quantity * Price) / Ingredient.TotalQuantity;
+
+        public void UpdateQuantity(decimal quantity)
+        {
+            Quantity = quantity;
+            UpdatedAt = DateTime.Now;
+        }
     }
 }
