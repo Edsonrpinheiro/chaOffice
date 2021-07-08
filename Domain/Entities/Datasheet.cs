@@ -19,7 +19,6 @@ namespace Domain.Entities
             _items = new List<DatasheetItem>();
         }
 
-        public Product Product { get; private set; }
         public string Name { get; private set; }
         public EDatasheetStatus Status { get; private set; }
         public decimal Labor { get; private set; }
@@ -50,7 +49,5 @@ namespace Domain.Entities
             Labor = labor;
             UpdatedAt = DateTime.Now;
         }
-
-
     }
 }
