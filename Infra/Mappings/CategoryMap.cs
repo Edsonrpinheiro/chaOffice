@@ -14,7 +14,7 @@ namespace Infra.Mappings
             builder
                 .Property(c => c.Name)
                 .IsRequired()
-                .HasMaxLength(60);
+                .HasMaxLength(100);
 
             builder
             .Property(c => c.Active)
