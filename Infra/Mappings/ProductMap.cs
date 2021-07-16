@@ -27,8 +27,10 @@ namespace Infra.Mappings
             
             builder
                 .Property(p => p.CreatedAt)
-                .IsRequired()
-                .HasDefaultValue(1);
+                .HasDefaultValueSql("now()");
+
+            builder
+                .HasMany(p => p.Datasheets);
         }
     }
 }

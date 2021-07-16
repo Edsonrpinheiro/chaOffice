@@ -21,8 +21,7 @@ namespace Infra.Mappings
                 .IsRequired();
             
             builder
-                .Property(d => d.Price)
-                .IsRequired();
+                .Property(d => d.Price);
 
             builder
                 .Property(d => d.CreatedAt)

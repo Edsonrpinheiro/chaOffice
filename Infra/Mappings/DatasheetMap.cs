@@ -1,4 +1,5 @@
 using Domain.Entities;
+using Domain.Entities.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -22,7 +23,7 @@ namespace Infra.Mappings
             
             builder
                 .Property(d => d.Status)
-                .HasDefaultValue(1);
+                .HasDefaultValue(EDatasheetStatus.Created);
 
             builder
                 .Property(d => d.CreatedAt)

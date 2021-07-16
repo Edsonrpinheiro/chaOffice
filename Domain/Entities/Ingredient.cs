@@ -4,7 +4,11 @@ using Shared.Entities;
 namespace Domain.Entities
 {
     public class Ingredient : Entity
-    {
+    {   
+        protected Ingredient()
+        {            
+        }
+        
         public Ingredient(UnitMeansure unitMeansure, string name, decimal totalQuantity, decimal price)
         {
             UnitMeansure = unitMeansure;

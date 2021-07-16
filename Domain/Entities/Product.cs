@@ -8,6 +8,11 @@ namespace Domain.Entities
     public class Product : Entity
     {
         private readonly IList<Datasheet> _datasheets;
+
+        protected Product()
+        {            
+        }
+        
         public Product(string name, Category category, string description)
         {
             Name = name;

@@ -12,6 +12,8 @@ namespace Domain.Entities
             Price = Ingredient.Price;
             CreatedAt = DateTime.Now;
         }
+        
+        protected DatasheetItem(){}
 
         public Ingredient Ingredient { get; private set; }
         public decimal Quantity { get; private set; }
