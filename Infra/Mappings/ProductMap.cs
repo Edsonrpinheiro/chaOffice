@@ -22,8 +22,7 @@ namespace Infra.Mappings
             
             builder
                 .HasOne(p => p.Category)
-                .WithOne()
-                .HasForeignKey<Category>(c => c.Id);
+                .WithMany();
             
             builder
                 .Property(p => p.CreatedAt)

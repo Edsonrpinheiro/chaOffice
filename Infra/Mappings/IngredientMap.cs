@@ -13,8 +13,7 @@ namespace Infra.Mappings
 
             builder
                 .HasOne(d => d.UnitMeansure)
-                .WithOne()
-                .HasForeignKey<UnitMeansure>(u => u.Id);
+                .WithMany();
             
             builder
                 .Property(d => d.TotalQuantity)

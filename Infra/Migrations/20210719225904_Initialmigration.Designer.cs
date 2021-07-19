@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infra.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210713224434_Initialmigration")]
+    [Migration("20210719225904_Initialmigration")]
     partial class Initialmigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -21,6 +21,7 @@ namespace Infra.Migrations
             modelBuilder.Entity("Domain.Entities.Category", b =>
                 {
                     b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("Active")
@@ -89,6 +90,9 @@ namespace Infra.Migrations
                     b.Property<Guid?>("DatasheetId")
                         .HasColumnType("TEXT");
 
+                    b.Property<Guid?>("IngredientId")
+                        .HasColumnType("TEXT");
+
                     b.Property<decimal>("Price")
                         .HasColumnType("TEXT");
 
@@ -102,12 +106,15 @@ namespace Infra.Migrations
 
                     b.HasIndex("DatasheetId");
 
+                    b.HasIndex("IngredientId");
+
                     b.ToTable("DatasheetItems");
                 });
 
             modelBuilder.Entity("Domain.Entities.Ingredient", b =>
                 {
                     b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("CreatedAt")
@@ -130,10 +137,15 @@ namespace Infra.Migrations
                     b.Property<decimal>("TotalQuantity")
                         .HasColumnType("TEXT");
 
+                    b.Property<Guid?>("UnitMeansureId")
+                        .HasColumnType("TEXT");
+
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("UnitMeansureId");
 
                     b.ToTable("Ingredients");
                 });
@@ -142,6 +154,9 @@ namespace Infra.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("CategoryId")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("CreatedAt")
@@ -163,12 +178,15 @@ namespace Infra.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CategoryId");
+
                     b.ToTable("Products");
                 });
 
             modelBuilder.Entity("Domain.Entities.UnitMeansure", b =>
                 {
                     b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Acronym")
@@ -187,15 +205,6 @@ namespace Infra.Migrations
                     b.ToTable("UnitMeasures");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Category", b =>
-                {
-                    b.HasOne("Domain.Entities.Product", null)
-                        .WithOne("Category")
-                        .HasForeignKey("Domain.Entities.Category", "Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Domain.Entities.Datasheet", b =>
                 {
                     b.HasOne("Domain.Entities.Product", null)
@@ -208,24 +217,30 @@ namespace Infra.Migrations
                     b.HasOne("Domain.Entities.Datasheet", null)
                         .WithMany("Items")
                         .HasForeignKey("DatasheetId");
+
+                    b.HasOne("Domain.Entities.Ingredient", "Ingredient")
+                        .WithMany()
+                        .HasForeignKey("IngredientId");
+
+                    b.Navigation("Ingredient");
                 });
 
             modelBuilder.Entity("Domain.Entities.Ingredient", b =>
                 {
-                    b.HasOne("Domain.Entities.DatasheetItem", null)
-                        .WithOne("Ingredient")
-                        .HasForeignKey("Domain.Entities.Ingredient", "Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("Domain.Entities.UnitMeansure", "UnitMeansure")
+                        .WithMany()
+                        .HasForeignKey("UnitMeansureId");
+
+                    b.Navigation("UnitMeansure");
                 });
 
-            modelBuilder.Entity("Domain.Entities.UnitMeansure", b =>
+            modelBuilder.Entity("Domain.Entities.Product", b =>
                 {
-                    b.HasOne("Domain.Entities.Ingredient", null)
-                        .WithOne("UnitMeansure")
-                        .HasForeignKey("Domain.Entities.UnitMeansure", "Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("Domain.Entities.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId");
+
+                    b.Navigation("Category");
                 });
 
             modelBuilder.Entity("Domain.Entities.Datasheet", b =>
@@ -233,20 +248,8 @@ namespace Infra.Migrations
                     b.Navigation("Items");
                 });
 
-            modelBuilder.Entity("Domain.Entities.DatasheetItem", b =>
-                {
-                    b.Navigation("Ingredient");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Ingredient", b =>
-                {
-                    b.Navigation("UnitMeansure");
-                });
-
             modelBuilder.Entity("Domain.Entities.Product", b =>
                 {
-                    b.Navigation("Category");
-
                     b.Navigation("Datasheets");
                 });
 #pragma warning restore 612, 618

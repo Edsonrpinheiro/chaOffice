@@ -13,8 +13,7 @@ namespace Infra.Mappings
 
             builder
                 .HasOne(d => d.Ingredient)
-                .WithOne()
-                .HasForeignKey<Ingredient>(i => i.Id);
+                .WithMany();
             
             builder
                 .Property(d => d.Quantity)
