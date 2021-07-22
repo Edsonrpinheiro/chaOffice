@@ -11,6 +11,6 @@ namespace Domain.Repositories
         bool CategoryExists(string name, Guid? id = null);
         bool CategoryInUse(Category category);
         void Create(Category category);
-        void Save(Category category);
+        void Update(Category category);
     }
 }

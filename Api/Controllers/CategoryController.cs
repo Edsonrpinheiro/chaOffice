@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Domain.Commands.CategoryCommands;
+using Domain.Handlers;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +13,13 @@ namespace Api.Controllers
     [Route("api/[controller]")]
     [ApiController]
     public class CategoryController : ControllerBase
-    {
+    {   
+
+        private readonly CategoryCommandHandler _handler;
+        public CategoryController(CategoryCommandHandler handler)
+        {
+            _handler = handler;
+        }
         // GET: api/<CategoryController>
         [HttpGet]
         public IEnumerable<string> Get()
@@ -21,27 +29,32 @@ namespace Api.Controllers
 
         // GET api/<CategoryController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public IActionResult Get(Guid id)
         {
-            return "value";
+            return Ok();
         }
 
         // POST api/<CategoryController>
         [HttpPost]
-        public void Post([FromBody] string value)
-        {
+        public IActionResult Post([FromBody] CreateCategoryCommand command)
+        {   
+            var result = _handler.Handler(command);
+            return Ok();
         }
 
         // PUT api/<CategoryController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
+        public IActionResult Put(Guid id, [FromBody] UpdateCategoryCommand command)
+        {   
+            var result = _handler.Handler(command);
+            return NoContent();
         }
 
         // DELETE api/<CategoryController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(Guid id)
         {
+            return NoContent();
         }
     }
 }

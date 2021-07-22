@@ -26,7 +26,7 @@ namespace Domain.Handlers
                 return new GenericCommandResult("Categoria já criada anteriormente", false);
 
             var category = new Category(command.Name);
-            _categoryRepository.Save(category);
+            _categoryRepository.Create(category);
 
             return new GenericCommandResult("Categoria criada com sucesso", true);
         }
@@ -42,7 +42,7 @@ namespace Domain.Handlers
             var category = _categoryRepository.Get(command.Id);
             category.ChangeName(command.Name);
 
-            _categoryRepository.Save(category);
+            _categoryRepository.Update(category);
 
             return new GenericCommandResult("Categoria atualizada com sucesso", true);
         }
@@ -56,7 +56,7 @@ namespace Domain.Handlers
                 return new GenericCommandResult("Categoria está sendo utilizada e não pode ser desativada", false);
 
             category.Deactivate();
-            _categoryRepository.Save(category);
+            _categoryRepository.Update(category);
 
             return new GenericCommandResult("Categoria desativada com sucesso", true);
         }

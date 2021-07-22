@@ -14,6 +14,9 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
+using Domain.Repositories;
+using Infra.Repositories;
+using Domain.Handlers;
 
 namespace API
 {
@@ -38,6 +41,9 @@ namespace API
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
             });
+
+            services.AddTransient<ICategoryRepository, CategoryRepository>();
+            services.AddTransient<CategoryCommandHandler, CategoryCommandHandler>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
