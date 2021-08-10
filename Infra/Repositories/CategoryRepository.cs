@@ -16,18 +16,22 @@ namespace Infra.Repositories
             _context = context;
         }
         public bool CategoryExists(string name, Guid? id = null)
-        {
-            throw new NotImplementedException();
+        {   
+            if(id != null)
+                return _context.Categories.Any(x => x.Name == name && x.Id != id);
+
+            return _context.Categories.Any(x => x.Name == name);
         }
 
         public bool CategoryInUse(Category category)
         {
-            throw new NotImplementedException();
+            return _context.Categories.Any(x => x == category);
         }
 
         public void Create(Category category)
         {
             _context.Categories.Add(category);
+            _context.SaveChanges();
         }
 
         public Category Get(Guid id)
@@ -37,7 +41,10 @@ namespace Infra.Repositories
 
         public List<Category> Get()
         {
-            throw new NotImplementedException();
+            return _context.Categories
+                   .Where(c => c.Active == true)
+                   .AsNoTracking()
+                   .ToList();
         }
 
         public void Update(Category category)
