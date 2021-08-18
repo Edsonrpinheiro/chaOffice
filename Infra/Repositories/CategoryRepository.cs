@@ -25,7 +25,7 @@ namespace Infra.Repositories
 
         public bool CategoryInUse(Category category)
         {
-            return _context.Categories.Any(x => x == category);
+            return _context.Products.Any(x => x.Category == category);
         }
 
         public void Create(Category category)

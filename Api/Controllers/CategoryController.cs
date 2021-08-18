@@ -34,7 +34,8 @@ namespace Api.Controllers
         [HttpGet("{id}")]
         public IActionResult Get(Guid id)
         {
-            return Ok();
+            var category = _categoryRepository.Get(id);
+            return Ok(category);
         }
 
         [HttpPost]
@@ -46,17 +47,20 @@ namespace Api.Controllers
 
         // PUT api/<CategoryController>/5
         [HttpPut("{id}")]
-        public IActionResult Put(Guid id, [FromBody] UpdateCategoryCommand command)
+        public IActionResult Put([FromBody] UpdateCategoryCommand command)
         {   
             var result = _handler.Handler(command);
-            return NoContent();
+            //return NoContent();
+            return Ok(result);
         }
 
         // DELETE api/<CategoryController>/5
         [HttpDelete("{id}")]
         public IActionResult Delete(Guid id)
         {
-            return NoContent();
+            var result = _handler.Handler(new DeleteCategoryCommand(id));
+            //return NoContent();
+            return Ok(result);
         }
     }
 }
