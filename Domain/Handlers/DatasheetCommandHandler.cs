@@ -25,7 +25,7 @@ namespace Domain.Handlers
             var product = _productRepository.Get(command.Product);
             var datasheet = new Datasheet(command.Name, command.Labor);
             product.AddDatasheet(datasheet);
-            _productRepository.Save(product);
+            _productRepository.Update(product);
 
             return new GenericCommandResult("Ficha técnica adicionada ao produto", true);
         }

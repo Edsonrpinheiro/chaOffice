@@ -9,6 +9,7 @@ namespace Domain.Repositories
         Product Get(Guid id);
         List<Product> Get();
         bool ProductExists(string name, Guid? id = null);
-        void Save(Product product);
+        void Create(Product product);
+        void Update(Product product);
     }
 }
