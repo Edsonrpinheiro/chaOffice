@@ -1,4 +1,4 @@
-# Cha das cinco office
+# Chá das cinco office
 
 Projeto desenvolvido para automatizar as operações da empresa Cha das Cinco https://www.instagram.com/chadascincogastronomia/.
 
