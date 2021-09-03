@@ -8,49 +8,23 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infra.Repositories
 {
-    public class CategoryRepository : ICategoryRepository
-    {   
-        private readonly DataContext _context;
-        public CategoryRepository(DataContext context)
+    public class CategoryRepository : BaseRepository<Category>, ICategoryRepository
+    {
+        public CategoryRepository(DataContext context) : base(context)
         {
-            _context = context;
         }
-        public bool CategoryExists(string name, Guid? id = null)
-        {   
-            if(id != null)
-                return _context.Categories.Any(x => x.Name == name && x.Id != id);
 
-            return _context.Categories.Any(x => x.Name == name);
+        public bool CategoryExists(string name, Guid? id = null)
+        {
+            if (id != null)
+                return _context.Categories.Any(x => x.Name.Equals(name) && x.Id != id && x.Active == true);
+
+            return _context.Categories.Any(x => x.Name.Equals(name) && x.Active == true);
         }
 
         public bool CategoryInUse(Category category)
         {
             return _context.Products.Any(x => x.Category == category);
-        }
-
-        public void Create(Category category)
-        {
-            _context.Categories.Add(category);
-            _context.SaveChanges();
-        }
-
-        public Category Get(Guid id)
-        {
-            return _context.Categories.FirstOrDefault(c => c.Id == id);
-        }
-
-        public List<Category> Get()
-        {
-            return _context.Categories
-                   .Where(c => c.Active == true)
-                   .AsNoTracking()
-                   .ToList();
-        }
-
-        public void Update(Category category)
-        {
-            _context.Entry(category).State = EntityState.Modified;
-            _context.SaveChanges();
         }
     }
 }

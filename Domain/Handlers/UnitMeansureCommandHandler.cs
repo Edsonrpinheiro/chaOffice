@@ -26,7 +26,8 @@ namespace Domain.Handlers
                 return new GenericCommandResult("Unidade de medida já criada anteriormente", false);
 
             var unitMeansure = new UnitMeansure(command.Name, command.Acronym);
-            _unitMeansureRepository.Save(unitMeansure);
+            _unitMeansureRepository.Add(unitMeansure);
+            _unitMeansureRepository.Save();
 
             return new GenericCommandResult("Unidade de medida criada com sucesso", true);
         }
@@ -38,10 +39,9 @@ namespace Domain.Handlers
             if (unitMeansureNameAlreadyExists)
                 return new GenericCommandResult("Unidade de medida já criada anteriormente", false);
 
-            var unitMeansure = _unitMeansureRepository.Get(command.Id);
+            var unitMeansure = _unitMeansureRepository.Get(command.Id);            
             unitMeansure.Update(command.Name, command.Acronym);
-
-            _unitMeansureRepository.Save(unitMeansure);
+            _unitMeansureRepository.Save();
 
             return new GenericCommandResult("Unidade de medida atualizada com sucesso", true);
         }
@@ -55,7 +55,7 @@ namespace Domain.Handlers
                 return new GenericCommandResult("Unidade de medida já criada anteriormente", false);
 
             unitMeansure.Deactivate();
-            _unitMeansureRepository.Save(unitMeansure);
+            _unitMeansureRepository.Save();
 
             return new GenericCommandResult("Unidade de medida Inativada com sucesso", true);
         }

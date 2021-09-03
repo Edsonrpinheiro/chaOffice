@@ -24,9 +24,11 @@ namespace Domain.Handlers
         {
             var product = _productRepository.Get(command.Product);
             var datasheet = new Datasheet(command.Name, command.Labor);
+
             product.AddDatasheet(datasheet);
             _productRepository.Update(product);
-
+            _productRepository.Save();
+            
             return new GenericCommandResult("Ficha técnica adicionada ao produto", true);
         }
 
@@ -34,6 +36,7 @@ namespace Domain.Handlers
         {
             var datasheet = _datasheetRepository.Get(command.Id);
             _datasheetRepository.Delete(datasheet);
+            _datasheetRepository.Save();
 
             return new GenericCommandResult("Ficha técnica excluída", true);
         }
@@ -42,7 +45,7 @@ namespace Domain.Handlers
         {
             var datasheet = _datasheetRepository.Get(command.Id);
             datasheet.Update(command.Name, command.Labor);
-            _datasheetRepository.Save(datasheet);
+            _datasheetRepository.Save();
             
             return new GenericCommandResult("Ficha técnica atualizada", true);
         }

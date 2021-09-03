@@ -34,8 +34,8 @@ namespace Domain.Handlers
 
             var item = new DatasheetItem(ingredient, command.Quantity);
             datasheet.AddItem(item);
-
-            _datasheetRepository.Save(datasheet);
+            
+            _datasheetRepository.Save();
 
             return new GenericCommandResult("Item adicionado a ficha técnica", true);
         }
@@ -44,7 +44,8 @@ namespace Domain.Handlers
         {
             var item = _datasheetItemRepository.Get(command.Id);
             item.UpdateQuantity(command.Quantity);
-
+            _datasheetItemRepository.Save();
+            
             return new GenericCommandResult("Item atualizado", true);
         }
 
@@ -54,7 +55,7 @@ namespace Domain.Handlers
             var item = _datasheetItemRepository.Get(command.Id);
 
             datasheet.RemoveItem(item);
-            _datasheetRepository.Save(datasheet);
+            _datasheetRepository.Save();
 
             return new GenericCommandResult("Item removido", true);
         }

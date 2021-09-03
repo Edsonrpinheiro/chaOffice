@@ -29,7 +29,7 @@ namespace Domain.Handlers
 
             var category = _categoryRepository.Get(command.Category);
             var product = new Product(command.Name, category, command.Description);
-            _productRepository.Create(product);
+            _productRepository.Add(product);
 
             return new GenericCommandResult("Produto criado", true);
         }

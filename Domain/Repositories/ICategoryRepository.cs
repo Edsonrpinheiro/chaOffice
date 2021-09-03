@@ -4,13 +4,9 @@ using Domain.Entities;
 
 namespace Domain.Repositories
 {
-    public interface ICategoryRepository
+    public interface ICategoryRepository : IBaseRepository<Category>
     {
-        Category Get(Guid id);
-        List<Category> Get();
         bool CategoryExists(string name, Guid? id = null);
         bool CategoryInUse(Category category);
-        void Create(Category category);
-        void Update(Category category);
     }
 }

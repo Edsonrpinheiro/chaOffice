@@ -4,11 +4,8 @@ using Domain.Entities;
 
 namespace Domain.Repositories
 {
-    public interface IDatasheetItemRepository
+    public interface IDatasheetItemRepository : IBaseRepository<DatasheetItem>
     {
-        DatasheetItem Get(Guid id);
-        void Create(DatasheetItem datasheetItem);
-        void Delete(DatasheetItem datasheetItem);
-        void Update(DatasheetItem datasheetItem);
+        
     }
 }

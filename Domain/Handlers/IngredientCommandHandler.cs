@@ -28,6 +28,8 @@ namespace Domain.Handlers
 
             var unitMeansure = _unitMeansureRepository.Get(command.UnitMeansure);
             var ingredient = new Ingredient(unitMeansure, command.Name, command.Quantity, command.Price);
+            _ingredientRepository.Add(ingredient);
+            _ingredientRepository.Save();
 
             return new GenericCommandResult("Ingreditente adicionado", true);
         }
@@ -42,6 +44,7 @@ namespace Domain.Handlers
             var ingredient = _ingredientRepository.Get(command.Id);
 
             ingredient.Update(unitMeansure, command.Name, command.Quantity, command.Price);
+            _ingredientRepository.Save();
 
             return new GenericCommandResult("Ingreditente alterado", true);
         }
@@ -55,7 +58,7 @@ namespace Domain.Handlers
                 return new GenericCommandResult("Ingreditente não pode ser desativo pois está em uso", false);
 
             ingredient.Deactivate();
-            _ingredientRepository.Save(ingredient);
+            _ingredientRepository.Save();
 
             return new GenericCommandResult("Ingreditente desativado", true);
         }
