@@ -27,7 +27,7 @@ namespace Api.Controllers
         [HttpGet]
         public IActionResult Get()
         {   
-            var categories = _categoryRepository.Get();
+            var categories = _categoryRepository.GetActives();
             return Ok(categories);
         }
 

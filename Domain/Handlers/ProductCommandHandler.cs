@@ -30,6 +30,7 @@ namespace Domain.Handlers
             var category = _categoryRepository.Get(command.Category);
             var product = new Product(command.Name, category, command.Description);
             _productRepository.Add(product);
+            _productRepository.Save();
 
             return new GenericCommandResult("Produto criado", true);
         }
@@ -46,6 +47,7 @@ namespace Domain.Handlers
 
             product.Update(command.Name, category, command.Description);
             _productRepository.Update(product);
+            _productRepository.Save();
 
             return new GenericCommandResult("Produto atualizado", true);
         }

@@ -8,5 +8,6 @@ namespace Domain.Repositories
     {
         bool IngredientExists(string name, Guid? id = null);
         bool IngredientInUse(Ingredient ingredient);
+        List<Ingredient> GetActives();
     }
 }

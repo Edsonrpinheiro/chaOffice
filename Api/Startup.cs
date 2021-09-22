@@ -17,6 +17,7 @@ using System.Reflection;
 using Domain.Repositories;
 using Infra.Repositories;
 using Domain.Handlers;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace API
 {
@@ -34,7 +35,12 @@ namespace API
         {
 
             var connectionString = Configuration.GetConnectionString("SqliteConnectionString");
-            services.AddDbContext<DataContext>(options => options.UseSqlite(connectionString, b => b.MigrationsAssembly("Infra")));
+            services.AddDbContext<DataContext>(
+                options => options
+                .UseSqlite(connectionString, b => b.MigrationsAssembly("Infra"))
+                .LogTo(Console.WriteLine, new[] { RelationalEventId.CommandExecuted })
+                .EnableSensitiveDataLogging()
+            );
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -44,8 +50,12 @@ namespace API
 
             services.AddTransient<ICategoryRepository, CategoryRepository>();
             services.AddTransient<IProductRepository, ProductRepository>();
+            services.AddTransient<IUnitMeansureRepository, UnitMeansureRepository>();
+            services.AddTransient<IIngredientRepository, IngredientRepository>();
             services.AddTransient<CategoryCommandHandler, CategoryCommandHandler>();
             services.AddTransient<ProductCommandHandler, ProductCommandHandler>();
+            services.AddTransient<UnitMeansureCommandHandler, UnitMeansureCommandHandler>();
+            services.AddTransient<IngredientCommandHandler, IngredientCommandHandler>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

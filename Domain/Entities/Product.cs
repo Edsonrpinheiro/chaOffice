@@ -10,7 +10,8 @@ namespace Domain.Entities
         private readonly IList<Datasheet> _datasheets;
 
         protected Product()
-        {            
+        {
+            _datasheets = new List<Datasheet>();            
         }
         
         public Product(string name, Category category, string description)
@@ -24,6 +25,7 @@ namespace Domain.Entities
         
         public string Name { get; private set; }
         public Category Category { get; private set; }
+        public Guid CategoryId { get; private set; }
         public string Description { get; private set; }
         public DateTime CreatedAt { get; private set; }
         public DateTime UpdatedAt { get; private set; }

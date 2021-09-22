@@ -8,5 +8,6 @@ namespace Domain.Repositories
     {
         bool CategoryExists(string name, Guid? id = null);
         bool CategoryInUse(Category category);
+        List<Category> GetActives();
     }
 }

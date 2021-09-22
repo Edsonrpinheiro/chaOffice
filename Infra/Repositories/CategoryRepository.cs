@@ -26,5 +26,10 @@ namespace Infra.Repositories
         {
             return _context.Products.Any(x => x.Category == category);
         }
+
+        public List<Category> GetActives()
+        {
+            return _context.Categories.Where(x => x.Active).AsNoTracking().ToList();
+        }
     }
 }

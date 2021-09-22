@@ -8,5 +8,6 @@ namespace Domain.Repositories
     {
         bool UnitMeansureInUse(UnitMeansure unitMeansure);
         bool UnitMeansureExists(string name, Guid? id = null);
+        List<UnitMeansure> GetActives();
     }
 }

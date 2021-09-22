@@ -41,6 +41,7 @@ namespace Domain.Handlers
 
             var unitMeansure = _unitMeansureRepository.Get(command.Id);            
             unitMeansure.Update(command.Name, command.Acronym);
+            _unitMeansureRepository.Update(unitMeansure);
             _unitMeansureRepository.Save();
 
             return new GenericCommandResult("Unidade de medida atualizada com sucesso", true);
@@ -52,7 +53,7 @@ namespace Domain.Handlers
             var unitMeansureInUse = _unitMeansureRepository.UnitMeansureInUse(unitMeansure);
 
             if (unitMeansureInUse)
-                return new GenericCommandResult("Unidade de medida já criada anteriormente", false);
+                return new GenericCommandResult("Unidade de medida está sendo utilizada e não pode ser apagada", false);
 
             unitMeansure.Deactivate();
             _unitMeansureRepository.Save();
