@@ -39,7 +39,10 @@ namespace Domain.Handlers
             if (unitMeansureNameAlreadyExists)
                 return new GenericCommandResult("Unidade de medida já criada anteriormente", false);
 
-            var unitMeansure = _unitMeansureRepository.Get(command.Id);            
+            var unitMeansure = _unitMeansureRepository.Get(command.Id);
+            if(!unitMeansure.Status)
+                return new GenericCommandResult("Unidade não encontrada", false);
+
             unitMeansure.Update(command.Name, command.Acronym);
             _unitMeansureRepository.Update(unitMeansure);
             _unitMeansureRepository.Save();

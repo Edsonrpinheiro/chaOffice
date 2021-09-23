@@ -20,6 +20,7 @@ namespace Domain.Entities
         }
 
         public UnitMeansure UnitMeansure { get; private set; }
+        public Guid UnitMeansureId { get; private set; }
         public string Name { get; private set; }
         public decimal TotalQuantity { get; private set; }
         public decimal Price { get; private set; }

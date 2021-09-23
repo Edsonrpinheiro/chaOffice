@@ -7,7 +7,7 @@ using Shared.Handlers;
 
 namespace Domain.Handlers
 {
-    public class DatasheetCommandItemHandler :
+    public class DatasheetItemCommandHandler :
         IHandler<CreateDatasheetItemCommand>,
         IHandler<UpdateDatasheetItemCommand>,
         IHandler<DeleteDatasheetItemCommand>
@@ -16,7 +16,7 @@ namespace Domain.Handlers
         private readonly IDatasheetRepository _datasheetRepository;
         private readonly IIngredientRepository _ingredientRepository;
 
-        public DatasheetCommandItemHandler(IDatasheetItemRepository datasheetItemRepository, IDatasheetRepository datasheetRepository, IIngredientRepository ingredientRepository)
+        public DatasheetItemCommandHandler(IDatasheetItemRepository datasheetItemRepository, IDatasheetRepository datasheetRepository, IIngredientRepository ingredientRepository)
         {
             _datasheetItemRepository = datasheetItemRepository;
             _datasheetRepository = datasheetRepository;

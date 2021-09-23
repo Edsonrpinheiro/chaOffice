@@ -52,10 +52,14 @@ namespace API
             services.AddTransient<IProductRepository, ProductRepository>();
             services.AddTransient<IUnitMeansureRepository, UnitMeansureRepository>();
             services.AddTransient<IIngredientRepository, IngredientRepository>();
+            services.AddTransient<IDatasheetRepository, DatasheetRepository>();
+            services.AddTransient<IDatasheetItemRepository, DatasheetItemRepository>();
             services.AddTransient<CategoryCommandHandler, CategoryCommandHandler>();
             services.AddTransient<ProductCommandHandler, ProductCommandHandler>();
             services.AddTransient<UnitMeansureCommandHandler, UnitMeansureCommandHandler>();
             services.AddTransient<IngredientCommandHandler, IngredientCommandHandler>();
+            services.AddTransient<DatasheetCommandHandler, DatasheetCommandHandler>();
+            services.AddTransient<DatasheetItemCommandHandler, DatasheetItemCommandHandler>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
